@@ -1,0 +1,14 @@
+@media all and (min-width: 480px) {
+    .Login {
+        padding: 60px 0;
+    }
+
+    .Sign form {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+
+}
+h6{
+    text-align: center;
+}
