@@ -17,9 +17,7 @@ public interface CustomerService extends SuperService {
     void saveCustomer(CustomerDTO dto);
 
     boolean logingCustome(CustomerDTO dto);
-//    boolean isCustomerExists(String Email);
-//
-//    CustomerDTO getCustomerById(String Email);
 
+    int getUserCounr();
 
 }

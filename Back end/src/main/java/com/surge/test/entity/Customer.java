@@ -2,40 +2,25 @@ package com.surge.test.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
+
 @Entity
 public class Customer extends SuperEntity {
 
-
-    private String firstname;
-    private String lastname;
     @Id
     private String email;
     private String password;
+    private String firstname;
+    private String lastname;
 
     public Customer() {
     }
 
-    public Customer(String firstN, String lastN, String email, String password) {
-        firstname = firstN;
-        lastname = lastN;
-        email = email;
-        password = password;
-    }
-
-    public String getFirstN() {
-        return firstname;
-    }
-
-    public void setFirstN(String firstN) {
-        firstname = firstN;
-    }
-
-    public String getLastN() {
-        return lastname;
-    }
-
-    public void setLastN(String lastN) {
-        lastname = lastN;
+    public Customer(String firstname, String lastname, String email, String password) {
+        this.email = email;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -43,7 +28,7 @@ public class Customer extends SuperEntity {
     }
 
     public void setEmail(String email) {
-        email = email;
+        this.email = email;
     }
 
     public String getPassword() {
@@ -51,16 +36,32 @@ public class Customer extends SuperEntity {
     }
 
     public void setPassword(String password) {
-        password = password;
+        this.password = password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "FirstN='" + firstname + '\'' +
-                ", LastN='" + lastname + '\'' +
-                ", Email='" + email + '\'' +
-                ", Password='" + password + '\'' +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 '}';
     }
 }

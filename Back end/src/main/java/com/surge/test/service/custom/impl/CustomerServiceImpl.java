@@ -5,6 +5,7 @@ import com.surge.test.service.custom.CustomerService;
 
 import com.surge.test.dto.CustomerDTO;
 import com.surge.test.repository.CustomerRepositiry;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,22 +27,25 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Page<CustomerDTO> getCustomersPage(int page, int size) {
         return customerRepository.findAll(PageRequest.of(page, size))
-                .map(c -> new CustomerDTO(c.getFirstN(), c.getLastN(), c.getEmail(),c.getPassword()));
+                .map(c -> new CustomerDTO(c.getFirstname(), c.getLastname(), c.getEmail(),c.getPassword()));
     }
 
     public List<CustomerDTO> getAllCustomers()  {
-        List<CustomerDTO> customers = customerRepository.findAll().stream().map(customer -> new CustomerDTO(customer.getFirstN(), customer.getLastN(), customer.getEmail(),customer.getPassword())).collect(Collectors.toList());
+        List<CustomerDTO> customers = customerRepository.findAll().stream().map(customer -> new CustomerDTO(customer.getFirstname(), customer.getLastname(), customer.getEmail(),customer.getPassword())).collect(Collectors.toList());
         return customers;
 
     }
     public void saveCustomer(CustomerDTO dto)   {
-        customerRepository.save(new Customer(dto.getFirstN(), dto.getLastN(), dto.getEmail(),dto.getPassword()));
+        String originalPassword = dto.getPassword();
+        String generatedSecuredPasswordHash = BCrypt.hashpw(originalPassword, BCrypt.gensalt(12));
+
+        customerRepository.save(new Customer(dto.getFirstname(), dto.getLastname(), dto.getEmail(),generatedSecuredPasswordHash));
     }
 
     @Override
     public boolean logingCustome(CustomerDTO dto) {
         Customer one = customerRepository.getOne(dto.getEmail());
-        if (one.getPassword().equals(dto.getPassword())){
+        if (BCrypt.checkpw(dto.getPassword(), one.getPassword())){
             return true;
         }
         else {
@@ -48,17 +53,14 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-//    @Override
-//    public boolean isCustomerExists(String Email) {
-//     return   customerRepository.existsById(Email);
-//    }
-//
-//    @Override
-//    public CustomerDTO getCustomerById(String Email) {
-//        Customer customer = customerRepository.getOne(Email);
-//        CustomerDTO customerDTO = new CustomerDTO(customer.getFirstN(), customer.getLastN(), customer.getEmail(),customer.getPassword());
-//        return customerDTO;
-//    }
 
 
+    public int getUserCounr() {
+        try {
+
+            return customerRepository.getCountUsers();
+        } catch (NoResultException e) {
+            return 0;
+        }
+    }
 }

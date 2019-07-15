@@ -1,117 +1,94 @@
-import React, { Component } from "react";
-import { Button, FormGroup, FormControl} from "react-bootstrap";
+import React, {Component} from "react";
+import {Button, FormControl, FormGroup} from "react-bootstrap";
 import "./Sign.css";
 import {Link} from "react-router-dom";
-import axios from 'axios';
+
 export default class Sign extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeFname=this.onChangeFname.bind(this);
+        this.onChangeFname = this.onChangeFname.bind(this);
 
-        this.onChangeLname=this.onChangeLname.bind(this);
+        this.onChangeLname = this.onChangeLname.bind(this);
 
-        this.onChangeEmail=this.onChangeEmail.bind(this);
-        this.onChangePassword=this.onChangePassword.bind(this);
-        this.onChangeCpw=this.onChangeCpw.bind(this);
+        this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeCpw = this.onChangeCpw.bind(this);
 
         this.state = {
             Fname: "",
             Lname: "",
-            email:"",
-            password:"",
-            Cpw:""
+            email: "",
+            password: "",
+            Cpw: ""
         };
 
 
     }
 
 
-    //
-    // handleChange = event => {
-    //     this.setState({
-    //         Fname: event.target.value,
-    //         Lname: event.target.value,
-    //         email: event.target.value,
-    //         password: event.target.value,
-    //         Cpw: event.target.value
-    //     });
-    // }
-    //
-    onChangeFname(e){
+    onChangeFname(e) {
         this.setState({
-            Fname:e.target.value
+            Fname: e.target.value
 
         })
 
 
     }
-    onChangeLname(e){
+
+    onChangeLname(e) {
         this.setState({
-            Lname:e.target.value
+            Lname: e.target.value
         })
         console.log(this.state.Fname);
     }
-    onChangeEmail(e){
+
+    onChangeEmail(e) {
         this.setState({
-            email:e.target.value
+            email: e.target.value
         })
     }
-    onChangePassword(e){
+
+    onChangePassword(e) {
         this.setState({
-            password:e.target.value
+            password: e.target.value
         })
     }
-    onChangeCpw(e){
+
+    onChangeCpw(e) {
         this.setState({
-            Cpw:e.target.value
+            Cpw: e.target.value
         })
 
     }
+
     //
     validateForm() {
-        console.log("lol");
-        // let fname=this.state.email;
-        //
-        // if(!(fname > 0 && this.state.password.length > 6 && this.state.Fname.length > 0 && this.state.Lname.length > 0 && this.state.Cpw.length > 0))
-        // {
-        //
-        //     alert("Passwords and Confirm PW dose match");
-        //     return;
-        //
-        // }else if (!(this.state.password == this.state.Cpw)) {
-        //
-        //     alert("Passwords and Confirm PW dose match");
-        //     return;
-        //
-        // }
+        // console.log("lol");
+        let fname=this.state.email;
+
+        if(!(fname > 0 && this.state.password.length > 6 && this.state.Fname.length > 0 && this.state.Lname.length > 0 && this.state.Cpw.length > 0))
+        {
+
+            alert("Passwords and Confirm PW dose match");
+            return;
+
+        }else if (!(this.state.password == this.state.Cpw)) {
+
+            alert("Passwords and Confirm PW dose match");
+            return;
+
+        }
     }
 
 
-
-
-
-
-    onSubmit(e){
+    onSubmit(e) {
 
 
         e.preventDefault();
 
-        // const obj ={
-        //
-        //     Fname : this.state.Fname,
-        //     Lname : this.state.Lname,
-        //     email :this.state.email,
-        //     password : this.state.password
-        // };
 
-        // axios.post('http://localhost:8080/api/v1/customers' , obj)
-        //     .then(res => {alert("Log in")})
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-
-        fetch('http://localhost:8080/api/v1/customers',{
+        fetch('http://localhost:8080/api/v1/customers', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -121,19 +98,20 @@ export default class Sign extends Component {
 
                 firstname: this.state.Fname,
                 lastname: this.state.Lname,
-                email:this.state.email,
-                password:this.state.password
+                email: this.state.email,
+                password: this.state.password
             }),
 
         })
-            .then(function(response){
+            .then(function (response) {
                 return response.json()
-            }).then(function(body){
-           if (body.status(201)){
-               this.props.history.push('/user');
-           } ;
+            }).then(function (body) {
+            if (body.status(201)) {
+                this.props.history.push('/user');
+            }
+            ;
             alert("lol");
-            }).catch((error) => {
+        }).catch((error) => {
             console.error(error);
         });
         this.setState({
@@ -146,11 +124,6 @@ export default class Sign extends Component {
 
     }
 
-
-
-    // handleSubmit = event => {
-    //     event.preventDefault();
-    // }
 
     render() {
         return (
@@ -165,7 +138,7 @@ export default class Sign extends Component {
                             onChange={this.onChangeFname}
                         />
                     </FormGroup>
-                    <FormGroup controlId="Lname" >
+                    <FormGroup controlId="Lname">
                         <label>Last Name</label>
                         <FormControl
                             value={this.state.Lname}
@@ -181,7 +154,7 @@ export default class Sign extends Component {
                             onChange={this.onChangeEmail}
                         />
                     </FormGroup>
-                    <FormGroup controlId="password" >
+                    <FormGroup controlId="password">
                         <label>Password</label>
                         <FormControl
                             value={this.state.password}
@@ -189,7 +162,7 @@ export default class Sign extends Component {
                             type="password"
                         />
                     </FormGroup>
-                    <FormGroup controlId="Cpw" >
+                    <FormGroup controlId="Cpw">
                         <label>Comfirm Password</label>
                         <FormControl
                             value={this.state.Cpw}
@@ -199,7 +172,7 @@ export default class Sign extends Component {
                     </FormGroup>
                     <Button
                         block
-                        // disabled={!this.validateForm()}
+                        disabled={!this.validateForm()}
                         onclick={this.validateForm()}
                         type="submit"
                     >
@@ -207,7 +180,7 @@ export default class Sign extends Component {
                     </Button>
                 </form>
                 <br/>
-                <h6 >Back to <b><Link to={"/login"}> Log In</Link></b></h6>
+                <h6>Back to <b><Link to={"/login"}> Log In</Link></b></h6>
             </div>
         );
     }

@@ -16,27 +16,27 @@ public class CustomerDTO {
          password = password;
      }
 
-    public CustomerDTO(String firstN, String lastN, String email, String password) {
-        firstname = firstN;
-        lastname = lastN;
-        email = email;
-        password = password;
+    public CustomerDTO(String firstname, String lastname, String email, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
     }
 
-    public String getFirstN() {
+    public String getFirstname() {
         return firstname;
     }
 
-    public void setFirstN(String firstN) {
-        firstname = firstN;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastN() {
+    public String getLastname() {
         return lastname;
     }
 
-    public void setLastN(String lastN) {
-        lastname = lastN;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -44,7 +44,7 @@ public class CustomerDTO {
     }
 
     public void setEmail(String email) {
-        email = email;
+        this.email = email;
     }
 
     public String getPassword() {
@@ -52,16 +52,16 @@ public class CustomerDTO {
     }
 
     public void setPassword(String password) {
-        password = password;
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "FirstN='" + firstname + '\'' +
-                ", LastN='" + lastname + '\'' +
-                ", Email='" + email + '\'' +
-                ", Password='" + password + '\'' +
+        return "CustomerDTO{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

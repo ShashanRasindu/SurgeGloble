@@ -11,7 +11,7 @@ import Users from "./AllUsers/users";
 const routing = (
     <Router>
             <Route path="" component={App} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" exact={true} component={Login} />
             <Route path="/sign" component={Sign} />
             <Route path="/user" component={Users} />
     </Router>
@@ -19,7 +19,4 @@ const routing = (
 
 ReactDOM.render(routing, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
